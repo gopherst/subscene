@@ -1,4 +1,6 @@
 require "faraday"
+require "nokogiri"
+
 require "subscene/version"
 
 module Subscene
