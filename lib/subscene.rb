@@ -1,3 +1,4 @@
+require "faraday"
 require "subscene/version"
 
 module Subscene
