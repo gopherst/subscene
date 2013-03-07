@@ -10,17 +10,11 @@ describe Subscene::SubtitleResultSet do
 
   describe ".build" do
     it "takes html" do
-      html_string = <<-HTML
-        <table>
-          <tr><td>foo</td></tr>
-          <tr><td>bar</td></tr>
-          <tr><td>baz</td></tr>
-        </table>
-      HTML
+      html_string = fixture("result_set_sample.html")
       html = Nokogiri::HTML(html_string)
 
       Subscene::SubtitleResultSet.build(html).
-        instances.first.name.should == "foo"
+        instances.first.name.should == "The.Big.Bang.Theory.S01E01-08.HDTV.XviD-XOR"
     end
   end
 end

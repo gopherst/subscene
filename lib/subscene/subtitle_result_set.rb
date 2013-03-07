@@ -8,7 +8,7 @@ class Subscene::SubtitleResultSet
   end
 
   def self.build(html)
-    instances = html.css("table > tr").collect do |item|
+    instances = html.css("tbody > tr").collect do |item|
       Subscene::SubtitleResult.build(item)
     end
 

@@ -5,6 +5,7 @@ require "subscene/version"
 require "subscene/error"
 require "subscene/response"
 require "subscene/response/raise_error"
+require "subscene/response/html"
 require "subscene/subtitle_result_set"
 require "subscene/subtitle"
 
@@ -46,7 +47,9 @@ module Subscene
   def search(query=nil)
     params   = { q: query } unless query.nil?
     response = connection.get(RELEASE_PATH, params || {})
-    response.body
+    html     = response.body
+
+    SubtitleResultSet.build(html)
   end
 
   private
@@ -55,6 +58,7 @@ module Subscene
     @connection ||= Faraday.new(url: ENDPOINT) do |faraday|
       faraday.response :logger if ENV['DEBUG']
       faraday.adapter  Faraday.default_adapter
+      faraday.use      Subscene::Response::HTML
       faraday.use      Subscene::Response::RaiseError
     end
   end
