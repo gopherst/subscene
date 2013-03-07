@@ -7,3 +7,7 @@ RSpec.configure do |config|
   config.filter_run :focus
   config.order = 'random'
 end
+
+def stub_get(path)
+  stub_request(:get, [Subscene::ENDPOINT, path].join('/'))
+end
