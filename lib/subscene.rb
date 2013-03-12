@@ -10,6 +10,7 @@ require "subscene/subtitle_result_set"
 require "subscene/subtitle"
 
 module Subscene
+
   # Subscene.com is a very complete and reliable catalog of subtitles.
   # If you're reading this you probably know they don't have an API.
   #
