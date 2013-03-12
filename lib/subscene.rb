@@ -41,7 +41,8 @@ module Subscene
   # Examples
   #
   #   Subscene.search('The Big Bang Theory s01e01')
-  #   # => TODO: display example result
+  #   # => [#<Subscene::SubtitleResult:0x007feb7c9473b0
+  #     @attributes={:id=>"136037", :name=>"The.Big.Bang.Theory.."]
   #
   # Returns the Subtitles found.
   def search(query=nil)
@@ -49,7 +50,24 @@ module Subscene
     response = connection.get(RELEASE_PATH, params || {})
     html     = response.body
 
-    SubtitleResultSet.build(html)
+    SubtitleResultSet.build(html).instances
+  end
+
+  # Public: Find a subtitle by id.
+  #
+  # id - The id of the subtitle.
+  #
+  # Examples
+  #
+  #   Subscene.find(136037)
+  #   # => TODO: display example result
+  #
+  # Returns the complete information of the Subtitle.
+  def find(id)
+    response = connection.get(id.to_s)
+    html     = response.body
+
+    Subtitle.build(html)
   end
 
   private

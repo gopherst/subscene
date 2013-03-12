@@ -10,11 +10,11 @@ describe Subscene::Subtitle do
 
   describe ".build" do
     it "takes html" do
-      html_string = "<p class='title'>bar</p>"
+      html_string = fixture("subtitle_sample.html")
       html = Nokogiri::HTML(html_string)
 
       Subscene::Subtitle.build(html).
-        name.should == "bar"
+        name.should == "The.Big.Bang.Theory.S01E01-08.HDTV.XviD-XOR"
     end
   end
 end
