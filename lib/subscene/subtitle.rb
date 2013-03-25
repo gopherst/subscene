@@ -19,7 +19,6 @@ class Subscene::Subtitle
     @hearing_impaired = @attributes[:hearing_impaired]
   end
 
-
   # Public: Download a Subtitle file.
   #
   # Examples

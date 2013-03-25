@@ -55,7 +55,33 @@ search reveals: http://subscene.com/subtitles/release.aspx?q=the%20big%20bang%20
 You can obtain additional information by `find`ing the id.
 
     Subscene.find(subtitles.last.id) # or Subscene.find(151582) directly
-    => #<Subscene::Subtitle @id="151582", @name="Fringe.S01E01.DVDSCR.XviD-MEDiEVAL-EN", @lang="English", @user="Jap", @user_id="20904", @comment="Has no comment.", @rating="8", @downloads="9,549", @framerate="Not available", @created_at="6/18/2008 3:09 PM", @download_url="/subtitle/download?mac=yoPjbFZ9WFbUmWTWpOvaGbXDYN2b4yBreI8TJIBfpdynT-4hzba446VvrVyxamBM0", @hearing_impaired=false>
+    => #<Subscene::Subtitle @id="151582",
+    @name="Fringe.S01E01.DVDSCR.XviD-MEDiEVAL-EN", @lang="English",
+    @user="Jap", @user_id="20904", @comment="Has no comment.", @rating="8",
+    @downloads="9,549", @framerate="Not available", @created_at="6/18/2008
+    3:09 PM",
+    @download_url="/subtitle/download?mac=yoPjbFZ9WFbUmWTWpOvaGbXDYN2b4yBreI8TJIBfpdynT-4hzba446VvrVyxamBM0",
+    @hearing_impaired=false>
+
+## Downloading
+
+Calling `#download` on a subtitle (retrieved with `find`) will download it.
+
+    Subscene.find(136037).download
+    # => #<Faraday::Response #@env={:body=>"PK\u00...", :response_headers=>{"content-type"=>"application/x-zip-compressed"} [..]>
+
+Example of how you might send this data with Rails
+
+    # app/controllers/sample_controller.rb
+    def download
+      res = Subscene.find(136037).download
+
+      content_type = res.response_headers.match(/Content-Type: (.*);/i)[1] rescue ""
+      filename = res.response_headers.match(%r(filename=\"(.*)\")i)[1] rescue "subtitles"
+
+      send_data res.response_body, content_type: content_type,
+        filename: filename, disposition: "attachment"
+    end
 
 ## Language Preferences
 
