@@ -47,10 +47,15 @@ module Subscene
   #
   # Returns the Subtitles found.
   def search(query=nil)
-    params   = { q: query } unless query.nil?
-    response = connection.get(RELEASE_PATH, params || {})
-    html     = response.body
+    params = { q: query } unless query.nil?
+    params ||= {}
 
+    response = connection.get do |req|
+      req.url RELEASE_PATH, params
+      req.headers['Cookie'] = "LanguageFilter=#{@lang_id};" if @lang_id
+    end
+
+    html = response.body
     SubtitleResultSet.build(html).instances
   end
 
@@ -71,6 +76,21 @@ module Subscene
     subtitle = Subtitle.build(html)
     subtitle.id = id
     subtitle
+  end
+
+  # Public: Set the language id for the search filter.
+  #
+  # lang_id - The id of the language. Maximum 3, comma separated.
+  #           Ids can be found at http://subscene.com/filter
+  #
+  # Examples
+  #
+  #   Subscene.language = 13      # English
+  #   Subscene.language = "13,18" # English, Spanish
+  #   Subscene.search("...") # Results will be only English subtitles
+  #
+  def language=(lang_id)
+    @lang_id = lang_id
   end
 
   private
