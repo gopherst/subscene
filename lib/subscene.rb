@@ -85,9 +85,10 @@ module Subscene
   #
   # Examples
   #
-  #   Subscene.language = 13      # English
-  #   Subscene.language = "13,18" # English, Spanish
+  #   Subscene.language = 13 # English
   #   Subscene.search("...") # Results will be only English subtitles
+  #   Subscene.language = "13,38" # English, Spanish
+  #   ...
   #
   def language=(lang_id)
     @lang_id = lang_id
