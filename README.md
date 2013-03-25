@@ -1,4 +1,4 @@
-# Subscene
+# Subscene [![Build Status](https://travis-ci.org/jassa/subscene.png)](https://travis-ci.org/jassa/subscene)
 
 Ruby API Client for Subscene.com
 
