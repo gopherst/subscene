@@ -68,7 +68,9 @@ module Subscene
     response = connection.get(id.to_s)
     html     = response.body
 
-    Subtitle.build(html)
+    subtitle = Subtitle.build(html)
+    subtitle.id = id
+    subtitle
   end
 
   private
