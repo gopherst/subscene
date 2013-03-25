@@ -32,8 +32,8 @@ class Subscene::Subtitle
   def download
     conn = Faraday.new(url: Subscene::ENDPOINT)
     conn.post do |req|
-      req.url "/#{@download_url}"
-      req.headers['Referer'] = "#{Subscene::ENDPOINT}/#{@id}"
+      req.url download_url
+      req.headers['Referer'] = "#{Subscene::ENDPOINT}/#{id}"
     end
   end
 

@@ -23,7 +23,7 @@ describe Subscene::Subtitle do
       html_string = fixture("subtitle_sample.html")
       html = Nokogiri::HTML(html_string)
 
-      stub_request(:post, "http://subtitle/download?mac=YLTKmewkUW-EsE9YHksE8LXDYN2b4yBreI8TJIBfpdxgMbaDY5jWnkHqZi70CwVF0").
+      stub_request(:post, "http://subscene.com/subtitle/download?mac=YLTKmewkUW-EsE9YHksE8LXDYN2b4yBreI8TJIBfpdxgMbaDY5jWnkHqZi70CwVF0").
          with(:headers => {'Referer'=>'http://subscene.com/136037'}).
          to_return(:status => 200, :body => fixture("subtitle.zip"),
            :headers => {'Content-Type'=>'application/x-zip-compressed; charset=utf-8'})
